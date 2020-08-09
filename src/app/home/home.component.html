@@ -1,0 +1,11 @@
+<div class="content">
+    <div class="filtro">
+        <input type="text" #textfiltro>
+        <button (click)="filtrar(textfiltro.value)">Filtrar</button>
+    </div>
+
+    <div *ngFor="let team of teamsFiltered" class="card">
+        <div class="titulo">{{ team.abbreviation }}</div>
+        <div class="nome">{{ team.full_name }}</div>
+    </div>
+</div>
