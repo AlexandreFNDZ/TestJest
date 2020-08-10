@@ -1,25 +1,20 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { HomeComponent } from './home.component';
+import { ApiServiceService } from '../api-service.service';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
+  let apiServiceMock = {} as ApiServiceService;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ HomeComponent ]
-    })
-    .compileComponents();
-  }));
+  it('teste da funcao filtrar',() => {
+    // Given mocks estejam ok
+    component = new HomeComponent(apiServiceMock);
+    apiServiceMock.getTeams = jest.fn();
+    component.teamsData = { data: [{ full_name: "Alexandre" }, { full_name: "Elzio" }] };
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(HomeComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    // When 
+    component.filtrar("ale");
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+    // Then
+    expect(component.teamsFiltered).toEqual([{ full_name: "Alexandre" }]);
   });
 });
